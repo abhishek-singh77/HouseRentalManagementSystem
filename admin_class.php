@@ -36,6 +36,7 @@ Class Action {
 				return 3;
 			}
 	}
+	//login function is for admin login
 	function login2(){
 		
 			extract($_POST);
@@ -67,7 +68,10 @@ Class Action {
 		}else{
 			return 3;
 		}
-	}
+	}//in login2 function we are checking the user is alumnus or not meaning if the user is alumnus then we are checking the status of the alumnus
+	//what is alumnus status means if the status is 1 then the user is alumnus and if the status is 0 then the user is not alumnus
+	//this is for the remember me function
+
 	function logout(){
 		session_destroy();
 		foreach ($_SESSION as $key => $value) {
@@ -139,6 +143,8 @@ Class Action {
 							$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
 							$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
 							$data .= ", avatar = '$fname' ";
+
+							//method for uploading the image of avatar in the assets/uploads file
 
 			}
 			$save_alumni = $this->db->query("INSERT INTO alumnus_bio set $data ");

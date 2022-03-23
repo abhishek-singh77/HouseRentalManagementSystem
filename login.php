@@ -3,14 +3,15 @@
 <?php 
 session_start();
 include('./db_connect.php');
-ob_start();
+ob_start();//ob_start() is used to start output buffering meaning that all the output that is sent to the browser is cached in the buffer.
 if(!isset($_SESSION['system'])){
 	$system = $conn->query("SELECT * FROM system_settings limit 1")->fetch_array();
 	foreach($system as $k => $v){
 		$_SESSION['system'][$k] = $v;
 	}
+	//Above code is used to set the system settings in the session variable.
 }
-ob_end_flush();
+ob_end_flush();//ob_end_flush() is used to flush the output buffer and send the contents of the buffer to the browser.
 ?>
 <head>
   <meta charset="utf-8">
@@ -19,11 +20,11 @@ ob_end_flush();
   <title><?php echo $_SESSION['system']['name'] ?></title>
  	
 
-<?php include('./header.php'); ?>
+<?php include('./header.php'); //we included the header file which consists of all the loaders like bootstrap jqery etc ?>
 <?php 
 if(isset($_SESSION['login_id']))
 header("location:index.php?page=home");
-
+//Now we checked the session and then if logged in then we redirect to the index page else we keep current page
 ?>
 
 </head>
@@ -43,7 +44,7 @@ header("location:index.php?page=home");
 		right:0;
 		width:40%;
 		height: calc(100%);
-		background:white;
+		background: linear-gradient(to right, rgb(127,0,0), rgba(222,123,0,0.5));
 		display: flex;
 		align-items: center;
 	}
@@ -52,15 +53,13 @@ header("location:index.php?page=home");
 		left:0;
 		width:60%;
 		height: calc(100%);
-		background:#59b6ec61;
+		background: linear-gradient(to right, #0062E6, #33AEFF);
 		display: flex;
 		align-items: center;
-		/*background: url(assets/uploads/blood-cells.jpg);
-	    background-repeat: no-repeat;
-	    background-size: cover;*/
 	}
 	#login-right .card{
 		margin: auto;
+		background: white;
 		z-index: 1
 	}
 	.logo {
@@ -88,14 +87,15 @@ div#login-right::before {
 
 
   <main id="main" class=" bg-light">
-  		<div id="login-left" class="bg-dark">
+  		<div id="login-left" >
   		</div>
 
-  		<div id="login-right" class="bg-light">
+  		<div id="login-right" >
   			<div class="w-100">
 			<h4 class="text-white text-center"><b><?php echo $_SESSION['system']['name'] ?></b></h4>
 			<br>
 			<br>
+			<!-- Login Form  -->
   			<div class="card col-md-8">
   				<div class="card-body">
   					<form id="login-form" >
@@ -120,10 +120,14 @@ div#login-right::before {
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
 
+
+ 
 </body>
+
 <script>
-	$('#login-form').submit(function(e){
-		e.preventDefault()
+	//Login Form Validation and Ajax for authentication
+	$('#login-form').submit(function(e){//This e is for the event
+		e.preventDefault()//what we are doing here is we are preventing the default behaviour of the form.
 		$('#login-form button[type="button"]').attr('disabled',true).html('Logging in...');
 		if($(this).find('.alert-danger').length > 0 )
 			$(this).find('.alert-danger').remove();
@@ -145,6 +149,12 @@ div#login-right::before {
 				}
 			}
 		})
+		//Above we are using ajax to send the data to the server and then we are checking the response from the server.
+		//If the response is 1 then we are redirecting to the index page else we are showing the error message.
+		//We are also removing the disabled attribute and the button text.
+		//We are also using the serialize() method to get the data from the form.
+		//We are also using the error and success method to handle the error and success response.
+		
 	})
 </script>	
 </html>

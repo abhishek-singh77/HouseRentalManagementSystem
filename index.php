@@ -2,6 +2,7 @@
 <html lang="en">
 	
 <?php session_start(); ?>
+<!-- First we started the session from the variables provided at the login page -->
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -10,10 +11,9 @@
  	
 
 <?php
-  if(!isset($_SESSION['login_id']))
-    header('location:login.php');
- include('./header.php'); 
- // include('./auth.php'); 
+  if(!isset($_SESSION['login_id']))/* What we are doing here is we are checking whether the session is set*/
+    header('location:login.php');/* or not, if not then it'll redirect to login page */
+ include('./header.php'); // This is the header file which contains the navbar and the css files
  ?>
 
 </head>
@@ -40,13 +40,13 @@
     top: 0;
 }
 #viewer_modal .modal-dialog {
-        width: 80%;
+    width: 80%;
     max-width: unset;
     height: calc(90%);
     max-height: unset;
 }
   #viewer_modal .modal-content {
-       background: black;
+    background: black;
     border: unset;
     height: calc(100%);
     display: flex;
@@ -62,15 +62,26 @@
 <body>
 	<?php include 'topbar.php' ?>
 	<?php include 'navbar.php' ?>
+  <!-- Imported the top bar and naviagtion -->
   <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-body text-white">
     </div>
   </div>
   
+
+  <!-- Now we'll be loading specific page based on the request of user let's say
+        if the user request for home page then we'll be loading payments.php then we will create a route 
+        to display that page and it'll render that page
+
+        Why am i Doing this?
+        Because it'll help us to load the page in the background and it'll be faster than loading the page in the foreground
+        and also this will keep check of the session and if the session is not set then it'll redirect to login page
+        and if the session is set then it'll render the page
+
+  -->
   <main id="view-panel" >
       <?php $page = isset($_GET['page']) ? $_GET['page'] :'home'; ?>
   	<?php include $page.'.php' ?>
-  	
 
   </main>
 
@@ -149,7 +160,7 @@
   window.uni_modal = function($title = '' , $url='',$size=""){
     start_load()
     $.ajax({
-        url:$url,
+       url:$url,
         error:err=>{
             console.log()
             alert("An error occured")

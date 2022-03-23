@@ -42,6 +42,7 @@
             <div class="card">
                 <div class="card-body">
                     <?php echo "Welcome back ". $_SESSION['login_name']."!"  ?>
+                    <!-- So what we did above was we simply requested the session variable name login -->
                     <hr>
                     <div class="row">
                         <div class="col-md-4 mb-3">
@@ -95,7 +96,7 @@
                                              echo $payment->num_rows > 0 ? number_format($payment->fetch_array()['paid'],2) : 0;
                                              ?>
                                         </b></h4>
-                                        <p><b>Payments This Month</b></p>
+                                        <p><b>Payments Today</b></p>
                                     </div>
                                 </div>
                                 <div class="card-footer">

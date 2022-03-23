@@ -1,7 +1,11 @@
 <?php
+//ajax will be called in the index.php file to get the data
+//when it is called we will implemeent ob_start() to start the output buffering
+//ob_start() is used to prevent the header from being sent in the ajax request
+//header here means the file which consists some pre-defined html css codes
 ob_start();
-$action = $_GET['action'];
-include 'admin_class.php';
+$action = $_GET['action'];//we requested the action from the ajax request
+include 'admin_class.php';//now we are calling the admin class function where we are defining the class admin
 $crud = new Action();
 if($action == 'login'){
 	$login = $crud->login();

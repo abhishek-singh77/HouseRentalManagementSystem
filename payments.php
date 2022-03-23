@@ -36,7 +36,12 @@
 								<?php 
 								$i = 1;
 								$tenants =$conn->query("SELECT t.*,concat(t.lastname,', ',t.firstname,' ',t.middlename) as name,h.house_no,h.price FROM tenants t inner join houses h on h.id = t.house_id where t.status = 1 order by h.house_no desc ");
-								while($row=$tenants->fetch_assoc()):
+								//above we are selecting all the tenants and houses in the database
+								//we are performing a join query to get the name of the tenant and the house number
+								//inner join return all the records that are in both the tables if it's common in both the tables
+
+								//now a while for each row present in the array and render it using the assosiative array
+								while($row=$tenants->fetch_assoc())://fetch_assoc() method is to fetch a result row as an associative array.
 									$months = abs(strtotime(date('Y-m-d')." 23:59:59") - strtotime($row['date_in']." 23:59:59"));
 									$months = floor(($months) / (30*60*60*24));
 									$payable = $row['price'] * $months;
