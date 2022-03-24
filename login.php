@@ -127,7 +127,7 @@ div#login-right::before {
 <script>
 	//Login Form Validation and Ajax for authentication
 	$('#login-form').submit(function(e){//This e is for the event
-		e.preventDefault()//what we are doing here is we are preventing the default behaviour of the form.
+		e.preventDefault()
 		$('#login-form button[type="button"]').attr('disabled',true).html('Logging in...');
 		if($(this).find('.alert-danger').length > 0 )
 			$(this).find('.alert-danger').remove();
@@ -137,6 +137,7 @@ div#login-right::before {
 			data:$(this).serialize(),
 			error:err=>{
 				console.log(err)
+				//what we are doing here is we are preventing the default behaviour of the form.
 		$('#login-form button[type="button"]').removeAttr('disabled').html('Login');
 
 			},

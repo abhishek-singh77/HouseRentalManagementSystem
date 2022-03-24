@@ -139,12 +139,13 @@ Class Action {
 				else
 					$data .= ", $k = '$v' ";
 			}
+			//method for uploading the image of avatar in the assets/uploads file
 			if($_FILES['img']['tmp_name'] != ''){
 							$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
 							$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
 							$data .= ", avatar = '$fname' ";
 
-							//method for uploading the image of avatar in the assets/uploads file
+							
 
 			}
 			$save_alumni = $this->db->query("INSERT INTO alumnus_bio set $data ");
